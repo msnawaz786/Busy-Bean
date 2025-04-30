@@ -3,7 +3,8 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { base_url } from "../utilities/URL";
 import { toast } from "react-toastify";
-
+import { signInWithPopup } from "firebase/auth";
+import { auth, provider } from "../firebase";
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
@@ -15,6 +16,29 @@ export default function Login() {
   const accessToken = localStorage.getItem("token");
 
   const [errors, setErrors] = useState({});
+
+
+  const handleGoogleLogin = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+  
+      // Save user info in localStorage
+      localStorage.setItem("user", JSON.stringify({
+        name: user.displayName,
+        email: user.email,
+        photo: user.photoURL,
+        uid: user.uid,
+        status: true,
+      }));
+  
+      toast.success("Google login successful");
+      navigate("/");
+    } catch (error) {
+      console.error("Google login error", error);
+      toast.error("Google login failed");
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -169,10 +193,11 @@ export default function Login() {
                 </div>
 
                 <div
-                  className="flex justify-end"
-                  onClick={() => navigate("/forgot-password")}
+                  className="flex justify-between"
+                  
                 >
-                  <button type="button" className="underline text-sm">
+                  <button className="text-sm underline" type="button"   onClick={handleGoogleLogin}>Google Login</button>
+                  <button type="button" className="underline text-sm" onClick={() => navigate("/forgot-password")}>
                     Forgot Password?
                   </button>
                 </div>
