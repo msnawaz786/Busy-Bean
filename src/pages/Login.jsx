@@ -4,7 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { base_url } from "../utilities/URL";
 import { toast } from "react-toastify";
 import { signInWithPopup } from "firebase/auth";
-import { auth, provider } from "../firebase";
+import { auth, provider, facebookProvider } from "../firebase";
+import { FcGoogle } from "react-icons/fc";
+import { FaFacebook } from "react-icons/fa";
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
@@ -17,21 +19,22 @@ export default function Login() {
 
   const [errors, setErrors] = useState({});
 
-
   const handleGoogleLogin = async () => {
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-  
-      // Save user info in localStorage
-      localStorage.setItem("user", JSON.stringify({
-        name: user.displayName,
-        email: user.email,
-        photo: user.photoURL,
-        uid: user.uid,
-        status: true,
-      }));
-  
+
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          name: user.displayName,
+          email: user.email,
+          photo: user.photoURL,
+          uid: user.uid,
+          status: true,
+        })
+      );
+
       toast.success("Google login successful");
       navigate("/");
     } catch (error) {
@@ -39,10 +42,33 @@ export default function Login() {
       toast.error("Google login failed");
     }
   };
+  const handleFacebookLogin = async () => {
+    try {
+      const result = await signInWithPopup(auth, facebookProvider);
+      const user = result.user;
+
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          name: user.displayName,
+          email: user.email,
+          photo: user.photoURL,
+          uid: user.uid,
+          status: true,
+        })
+      );
+
+      toast.success("Facebook login successful");
+      navigate("/");
+    } catch (error) {
+      console.error("Facebook login error", error);
+      toast.error("Facebook login failed");
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-  
+
     setLoginUser((prev) => ({
       ...prev,
       [name]: value,
@@ -52,27 +78,25 @@ export default function Login() {
       [name]: "",
     }));
   };
-  
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     const newErrors = {};
-   
 
-  if (!loginUser.email) {
-    newErrors.email = "Please enter your email.";
-  } else if (!/^\S+@\S+\.\S+$/.test(loginUser.email)) {
-    newErrors.email = "Email must be a valid email.";
-  }
+    if (!loginUser.email) {
+      newErrors.email = "Please enter your email.";
+    } else if (!/^\S+@\S+\.\S+$/.test(loginUser.email)) {
+      newErrors.email = "Email must be a valid email.";
+    }
 
-  if (!loginUser.password) {
-    newErrors.password = "Please enter your password.";
-  } else if (loginUser.password.length < 8) {
-    newErrors.password = "Password must be at least 8 characters.";
-  }
+    if (!loginUser.password) {
+      newErrors.password = "Please enter your password.";
+    } else if (loginUser.password.length < 8) {
+      newErrors.password = "Password must be at least 8 characters.";
+    }
 
-  setErrors(newErrors);
+    setErrors(newErrors);
     if (Object.keys(newErrors).length > 0) {
       setIsLoading(false);
       return;
@@ -141,68 +165,86 @@ export default function Login() {
             </div>
           ) : (
             <form onSubmit={handleLogin}>
-              <div className="text-white pt-5 flex flex-col gap-y-5">
+              <div className="text-white pt-5 flex flex-col gap-y-4">
                 <div className="">
-                <div className="flex flex-col gap-y-3">
-                  <label>Email</label>
-                  <input
-              
-                    name="email"
-                    value={loginUser.email}
-                    onChange={handleChange}
-                    className="bg-black rounded-lg py-2 outline-none px-5"
-                    placeholder="Email"
-                  />
-                
-                </div>
-                <div className="pt-2">
-                {errors.email && (
-                    <p className="text-red-500 text-sm  border-t border-[#5b554f] pt-1">{errors.email}</p>
-                  )}
+                  <div className="flex flex-col gap-y-3">
+                    <label>Email</label>
+                    <input
+                      name="email"
+                      value={loginUser.email}
+                      onChange={handleChange}
+                      className="bg-black rounded-lg h-12 outline-none px-5"
+                      placeholder="Email"
+                    />
                   </div>
-                  </div>
-                  <div className="">
-                <div className="flex flex-col gap-y-3 relative">
-                  <label>Password</label>
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    name="password"
-                    value={loginUser.password}
-                    onChange={handleChange}
-                    className="bg-black rounded-lg py-2 outline-none px-5 pr-10"
-                    placeholder="Password"
-                  />
-              
-                  <div
-                    className="absolute right-3 top-[58%] cursor-pointer text-white"
-                    onClick={() => setShowPassword(!showPassword)}
-                  >
-                    {showPassword ? (
-                      <AiOutlineEye size={22} />
-                    ) : (
-                      <AiOutlineEyeInvisible size={22} />
+                  <div className="pt-2">
+                    {errors.email && (
+                      <p className="text-red-500 text-sm  border-t border-[#5b554f] pt-1">
+                        {errors.email}
+                      </p>
                     )}
                   </div>
                 </div>
-                <div className="pt-2">
-                {errors.password && (
-                    <p className="text-red-500 text-sm border-t border-[#5b554f] pt-1">{errors.password}</p>
-                  )}
+                <div className="">
+                  <div className="flex flex-col gap-y-3 relative">
+                    <label>Password</label>
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      name="password"
+                      value={loginUser.password}
+                      onChange={handleChange}
+                      className="bg-black rounded-lg h-12 outline-none px-5 pr-10"
+                      placeholder="Password"
+                    />
 
+                    <div
+                      className="absolute right-3 top-[58%] cursor-pointer text-white"
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {showPassword ? (
+                        <AiOutlineEye size={22} />
+                      ) : (
+                        <AiOutlineEyeInvisible size={22} />
+                      )}
+                    </div>
+                  </div>
+                  <div className="pt-2">
+                    {errors.password && (
+                      <p className="text-red-500 text-sm border-t border-[#5b554f] pt-1">
+                        {errors.password}
+                      </p>
+                    )}
+                  </div>
                 </div>
-                </div>
-
                 <div
-                  className="flex justify-between"
-                  
+                  className="bg-black h-12 rounded-lg flex justify-center items-center gap-x-2 cursor-pointer"
+                  onClick={handleGoogleLogin}
                 >
-                  <button className="text-sm underline" type="button"   onClick={handleGoogleLogin}>Google Login</button>
-                  <button type="button" className="underline text-sm" onClick={() => navigate("/forgot-password")}>
+                  <FcGoogle size={24} />
+                  <h2 className="text-lg font-inter font-semibold">
+                    Sign in with google
+                  </h2>
+                </div>
+                <div
+                  className="bg-blue-600 h-12 rounded-lg flex justify-center items-center gap-x-2 cursor-pointer"
+                  onClick={handleFacebookLogin}
+                >
+                  <FaFacebook size={24} />
+                  <h2 className="text-lg font-inter font-semibold">
+                    Sign in with Facebook
+                  </h2>
+                </div>
+                <div className="flex justify-end">
+                  <button
+                    type="button"
+                    className="underline text-sm"
+                    onClick={() => navigate("/forgot-password")}
+                  >
                     Forgot Password?
                   </button>
                 </div>
 
-                <div className="flex justify-center items-center bg-[#86644c] py-2 rounded-lg cursor-pointer">
+                <div className="flex justify-center items-center bg-[#86644c] h-12 rounded-lg cursor-pointer">
                   <button type="submit" className="w-full">
                     Sign in
                   </button>
