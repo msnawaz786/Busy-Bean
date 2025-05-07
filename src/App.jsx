@@ -18,6 +18,8 @@ import Preference from './pages/Preference';
 import PaymentDetail from './pages/PaymentDetail';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassowrd from './pages/ResetUserPassowrd';
+import OrderHistory from './pages/OrderHistory';
+import Timeline from './pages/Timeline';
 
 export default function App() {
   return (
@@ -39,6 +41,8 @@ export default function App() {
           <Route path='/payment-detail' element={<PaymentDetail />}/>
           <Route path='/forgot-password' element={<ForgotPassword />}/>
           <Route path='/reset-password' element={<ResetPassowrd />}/>
+          <Route path='/order-history' element={<OrderHistory />}/>
+          <Route path='/timeline' element={<Timeline />}/>
          
         </Routes>
       </Router>

@@ -137,7 +137,7 @@ export default function Signup() {
       if (result?.status === "success") {
         toast.success("OTP sent Successful");
         setShowPinModal(true);
-// localStorage.setItem("userDetail", JSON.stringify(result?.data))
+
         setUserId(result?.data?.data?.id);
         setUserEmail(result?.data?.data?.email);
         setShowPinModal(true);

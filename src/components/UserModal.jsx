@@ -110,7 +110,7 @@ export default function UserModal({ isOpen, onClose }) {
                   </div>
                   <IoIosArrowForward />
                 </div>
-                <div className="flex items-center justify-between border-b pb-4 pt-5 cursor-pointer">
+                <div className="flex items-center justify-between border-b pb-4 pt-5 cursor-pointer" onClick={()=>navigate("/order-history")}>
                   <div className="flex items-center gap-x-5">
                     <LuUsers />
                     <p>Order History</p>
