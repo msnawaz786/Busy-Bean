@@ -30,7 +30,7 @@ export default function Login() {
           name: user.displayName,
           email: user.email,
           photo: user.photoURL,
-          uid: user.uid,
+          userId: user.uid,
           status: true,
         })
       );
@@ -53,10 +53,11 @@ export default function Login() {
           name: user.displayName,
           email: user.email,
           photo: user.photoURL,
-          uid: user.uid,
+          userId: user.uid,
           status: true,
         })
       );
+      // console.log(userId,"google id")
 
       toast.success("Facebook login successful");
       navigate("/");

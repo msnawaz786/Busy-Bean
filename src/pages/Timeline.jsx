@@ -60,7 +60,7 @@ export default function Timeline() {
             <div className="text-white">
               {tab === "Status" && (
                 <div>
-                  <div className="border rounded-lg w-1/2 py-3 px-5 flex items-center gap-x-5 font-inter">
+                  <div className="border rounded-lg w-full md:w-2/3 lg:w-1/2 py-3 px-5 flex items-center gap-x-5 font-inter">
                     <div className="bg-white text-black size-10 rounded-full flex justify-center items-center text-lg">
                       <span>{orderDetail?.statusId}</span>
                     </div>
@@ -70,8 +70,8 @@ export default function Timeline() {
                     <h1 className="text-xl font-inter pb-5">
                       Need help with your order?
                     </h1>
-                    <div className="border rounded-lg w-1/2 py-3 px-5 flex items-center gap-x-5 font-inter">
-                      <div className="bg-white text-black size-10 rounded-full flex justify-center items-center text-lg">
+                    <div className="border rounded-lg w-full md:w-2/3 lg:w-1/2 py-3 px-5 flex items-center gap-x-5 font-inter">
+                      <div className="bg-white text-black py-2 px-2 rounded-full flex justify-center items-center text-lg">
                         <BiSolidMessageAltDetail size={24} />
                       </div>
                       <div className="text-base font-inter">
@@ -108,7 +108,7 @@ export default function Timeline() {
                 <h1 className="text-white  text-2xl font-inter font-bold">Items</h1>
                 <div className="flex flex-col gap-y-3">
                 {orderDetail?.items.map((item)=>(
-                    <div className="flex  justify-between">
+                    <div className="flex  justify-between" key={item?.id}>
                         <h1>{item?.product}</h1>
                         <span>${item?.price} X {item?.qty} = ${item?.price*item?.qty}</span>
                     </div>
@@ -137,11 +137,11 @@ export default function Timeline() {
                     <h1 className="text-xl font-inter pb-5">
                       Need help with your order?
                     </h1>
-                    <div className="border rounded-lg w-1/2 py-3 px-5 flex items-center gap-x-5 font-inter">
-                      <div className="bg-white text-black size-10 rounded-full flex justify-center items-center text-lg">
+                    <div className="border rounded-lg w-full md:w-2/3 lg:w-1/2 py-3 px-5 flex items-center gap-x-5 font-inter">
+                      <div className="bg-white text-black py-2 px-2 rounded-full flex justify-center items-center text-lg">
                         <BiSolidMessageAltDetail size={24} />
                       </div>
-                      <div className="text-base font-inter">
+                      <div className="text-xs md:text-base  font-inter">
                       <h1>Contact support</h1>
                       <p>Contact support If you need help with your order</p>
                       </div>
