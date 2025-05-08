@@ -139,7 +139,7 @@ export default function Login() {
 
   return (
     <div className="h-screen flex justify-center items-center bg-[#3e342c]">
-      <div className="w-11/12 sm:w-4/6 md:w-3/5 2xl:w-[60%] mx-auto bg-[#322a23] grid grid-cols-1 md:grid-cols-2 border md:border-0 border-[#86644C]">
+      <div className="w-11/12 sm:w-4/6 md:w-4/5 xl:w-3/5 mx-auto bg-[#322a23] grid grid-cols-1 md:grid-cols-2 border md:border-0 border-[#86644C]">
         <div className="h-full flex justify-center items-center px-5 md:border border-[#86644C] ">
           <div className="w-full h-36">
             <img
@@ -221,7 +221,7 @@ export default function Login() {
                   onClick={handleGoogleLogin}
                 >
                   <FcGoogle size={24} />
-                  <h2 className="text-lg font-inter font-semibold">
+                  <h2 className="text-xs sm:text-base md:text-lg lg:text-xl  font-inter font-semibold">
                     Sign in with google
                   </h2>
                 </div>
@@ -230,7 +230,7 @@ export default function Login() {
                   onClick={handleFacebookLogin}
                 >
                   <FaFacebook size={24} />
-                  <h2 className="text-lg font-inter font-semibold">
+                  <h2 className="text-xs sm:text-base md:text-lg lg:text-xl  font-inter font-semibold">
                     Sign in with Facebook
                   </h2>
                 </div>

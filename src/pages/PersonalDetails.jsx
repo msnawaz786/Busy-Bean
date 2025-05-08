@@ -157,7 +157,7 @@ export default function PersonalDetails() {
                   onChange={(e) =>
                     setProfile({ ...profile, name: e.target.value })
                   }
-                  className="text-white bg-transparent border border-[#86644c] px-2 py-1 rounded"
+                  className="text-white bg-transparent border border-[#86644c] px-2 py-1 rounded outline-none"
                 />
               ) : (
                 <p className="text-[#9f9a96] text-sm sm:text-base">
@@ -169,7 +169,7 @@ export default function PersonalDetails() {
                 {model.type === "name" ? (
                   <button
                     onClick={() => handleProfileUpdate("name")}
-                    className="text-white text-sm sm:text-lg font-medium"
+                    className="text-black bg-white py-1 px-2 rounded-lg text-sm sm:text-lg font-medium"
                   >
                     Save
                   </button>
@@ -196,7 +196,7 @@ export default function PersonalDetails() {
                   onChange={(e) =>
                     setProfile({ ...profile, companyName: e.target.value })
                   }
-                  className="text-white bg-transparent border border-[#86644c] px-2 py-1 rounded"
+                  className="text-white bg-transparent border border-[#86644c] px-2 py-1 rounded outline-none"
                 />
               ) : (
                 <p className="text-[#9f9a96] text-sm sm:text-base">
@@ -208,7 +208,7 @@ export default function PersonalDetails() {
                 {model.type === "companyName" ? (
                   <button
                     onClick={() => handleProfileUpdate("companyName")}
-                    className="text-white text-sm sm:text-lg font-medium"
+                    className="text-black bg-white py-1 px-2 rounded-lg text-sm sm:text-lg font-medium"
                   >
                     Save
                   </button>
@@ -249,7 +249,7 @@ export default function PersonalDetails() {
                       emailToSendInvoices: e.target.value,
                     })
                   }
-                  className="text-white bg-transparent border border-[#86644c] px-2 py-1 rounded"
+                  className="text-white bg-transparent border border-[#86644c] px-2 py-1 rounded outline-none"
                 />
               ) : (
                 <div className="text-[#9f9a96] text-sm sm:text-base">
@@ -266,7 +266,7 @@ export default function PersonalDetails() {
                 {model.type === "emailToSendInvoices" ? (
                   <button
                     onClick={() => handleProfileUpdate("emailToSendInvoices")}
-                    className="text-white text-sm sm:text-lg font-medium"
+                    className="text-black bg-white py-1 px-2 rounded-lg text-sm sm:text-lg font-medium"
                   >
                     Save
                   </button>
@@ -298,7 +298,7 @@ export default function PersonalDetails() {
                   onChange={(e) =>
                     setProfile({ ...profile, phoneNumber: e.target.value })
                   }
-                  className="text-white bg-transparent border border-[#86644c] px-2 py-1 rounded"
+                  className="text-white bg-transparent border border-[#86644c] px-2 py-1 rounded outline-none"
                 />
               ) : (
                 <p className="text-[#9f9a96] text-sm sm:text-base">
@@ -310,7 +310,7 @@ export default function PersonalDetails() {
                 {model.type === "phoneNumber" ? (
                   <button
                     onClick={() => handleProfileUpdate("phoneNumber")}
-                    className="text-white text-sm sm:text-lg font-medium"
+                    className="text-black bg-white py-1 px-2 rounded-lg text-sm sm:text-lg font-medium"
                   >
                     Save
                   </button>
@@ -338,7 +338,7 @@ export default function PersonalDetails() {
                   onChange={(e) =>
                     setProfile({ ...profile, saleTaxNumber: e.target.value })
                   }
-                  className="text-white bg-transparent border border-[#86644c] px-2 py-1 rounded"
+                  className="text-white bg-transparent border border-[#86644c] px-2 py-1 rounded outline-none"
                 />
               ) : (
                 <p className="text-[#9f9a96] text-sm sm:text-base">
@@ -350,7 +350,7 @@ export default function PersonalDetails() {
                 {model.type === "saleTaxNumber" ? (
                   <button
                     onClick={() => handleProfileUpdate("saleTaxNumber")}
-                    className="text-white text-sm sm:text-lg font-medium"
+                    className="text-black bg-white py-1 px-2 rounded-lg text-sm sm:text-lg font-medium"
                   >
                     Save
                   </button>
@@ -383,7 +383,7 @@ export default function PersonalDetails() {
                       onChange={(e) =>
                         setProfile({ ...profile, country: e.target.value })
                       }
-                      className="text-white bg-transparent border border-[#86644c] px-2 py-1 rounded"
+                      className="text-white bg-transparent border border-[#86644c] px-2 py-1 rounded outline-none"
                     />
                   </div>
                   <div className="flex flex-col">
@@ -398,7 +398,7 @@ export default function PersonalDetails() {
                           addressLineOne: e.target.value,
                         })
                       }
-                      className="text-white bg-transparent border border-[#86644c] px-2 py-1 rounded"
+                      className="text-white bg-transparent border border-[#86644c] px-2 py-1 rounded outline-none"
                     />
                   </div>
                   <div className="flex flex-col">
@@ -410,7 +410,7 @@ export default function PersonalDetails() {
                       onChange={(e) =>
                         setProfile({ ...profile, state: e.target.value })
                       }
-                      className="text-white bg-transparent border border-[#86644c] px-2 py-1 rounded"
+                      className="text-white bg-transparent border border-[#86644c] px-2 py-1 rounded outline-none"
                     />
                   </div>
                   <div className="flex gap-x-5 w-full">
@@ -423,7 +423,7 @@ export default function PersonalDetails() {
                         onChange={(e) =>
                           setProfile({ ...profile, zipCode: e.target.value })
                         }
-                        className="text-white bg-transparent border border-[#86644c] px-2 py-1 rounded"
+                        className="text-white bg-transparent border border-[#86644c] px-2 py-1 rounded outline-none"
                       />
                     </div>
                     <div className="flex flex-col">
@@ -435,7 +435,7 @@ export default function PersonalDetails() {
                         onChange={(e) =>
                           setProfile({ ...profile, town: e.target.value })
                         }
-                        className="text-white bg-transparent border border-[#86644c] px-2 py-1 rounded"
+                        className="text-white bg-transparent border border-[#86644c] px-2 py-1 rounded outline-none"
                       />
                     </div>
                   </div>
@@ -452,7 +452,7 @@ export default function PersonalDetails() {
                 {model.type === "address" ? (
                   <button
                     onClick={() => handleProfileUpdate("address")}
-                    className="text-white text-sm sm:text-lg font-medium"
+                    className="text-black bg-white py-1 px-2 rounded-lg text-sm sm:text-lg font-medium"
                   >
                     Save
                   </button>

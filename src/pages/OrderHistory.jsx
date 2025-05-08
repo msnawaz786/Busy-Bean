@@ -50,7 +50,7 @@ const navigate=useNavigate()
                     {orderHistory?.data.map((orders) => (
                    
                         <div className="border-b border-[#86644c] py-7 cursor-pointer"   onClick={() => navigate("/timeline", { state: { orderId: orders.id } })}>
-                          <div className="grid grid-cols-2">
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-y-5 ">
                             {orders?.items.map((items) => (
                               <div className="flex gap-x-5 text-white">
                                 <div className="h-24 w-36 border">

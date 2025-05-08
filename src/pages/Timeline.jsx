@@ -62,7 +62,7 @@ export default function Timeline() {
                 <div>
                   <div className="border rounded-lg w-1/2 py-3 px-5 flex items-center gap-x-5 font-inter">
                     <div className="bg-white text-black size-10 rounded-full flex justify-center items-center text-lg">
-                      <span>1</span>
+                      <span>{orderDetail?.statusId}</span>
                     </div>
                     <h1>{orderDetail?.orderCurrentStatus}</h1>
                   </div>
@@ -84,12 +84,71 @@ export default function Timeline() {
               )}
 
               {tab === "Details" && (
-                <div>
-                  <h2 className="text-xl font-bold mb-2">Order Details</h2>
-                  <p>Item: Example Item</p>
-                  <p>Quantity: 2</p>
-                  <p>Price: $20</p>
+                <>
+                  <div className="flex justify-between">
+                    <div className="text-[#d1d5db] text-base font-inter flex flex-col gap-y-2">
+                        <h2>Frequency: {orderDetail?.frequency}</h2>
+                        <h2>Note: {orderDetail?.note}</h2>
+                        <h2>Tracking no: </h2>
+                        <h2>Order Id: {orderDetail?.id}</h2>
+                        <p>Delivered to: {orderDetail?.address?.addressLineOne} , {orderDetail?.address?.country}</p>
+                    </div>
+                    <div className="text-white font-inter flex flex-col gap-y-2">
+                        <div className="border rounded-lg text-center px-5 py-2 ">
+                            <h1>{orderDetail?.paymentMethod}</h1>
+                        </div>
+                        <div className="border rounded-lg text-center px-5 py-2 ">
+ 
+                            <h1>{orderDetail?.paymentStatus}</h1>
+                        </div>
+                    </div>
+                  </div>
+
+            <div className="pt-5 text-[#d1d5db] text-base font-inter">
+                <h1 className="text-white  text-2xl font-inter font-bold">Items</h1>
+                <div className="flex flex-col gap-y-3">
+                {orderDetail?.items.map((item)=>(
+                    <div className="flex  justify-between">
+                        <h1>{item?.product}</h1>
+                        <span>${item?.price} X {item?.qty} = ${item?.price*item?.qty}</span>
+                    </div>
+                ))}
+                <div className="flex justify-between">
+                <h1>Total weight</h1>
+                <span>{orderDetail?.totalWeight}</span>
                 </div>
+                <div className="text-2xl font-inter font-bold flex justify-between text-white">
+                    <h1 >SubTotal</h1>
+                    <span>${orderDetail?.subTotal}</span>
+                </div>
+                <div className=" font-inter flex justify-between">
+                    <h1 >VAT</h1>
+                    <span>${orderDetail?.vat}</span>
+                </div>
+                <div className="text-2xl font-inter font-bold flex justify-between text-white">
+                    <h1 >Total</h1>
+                    <span>${parseFloat(orderDetail?.totalBill )+parseFloat (orderDetail?.vat)}</span>
+                </div>
+                </div>
+            </div>
+
+
+            <div className="pt-10">
+                    <h1 className="text-xl font-inter pb-5">
+                      Need help with your order?
+                    </h1>
+                    <div className="border rounded-lg w-1/2 py-3 px-5 flex items-center gap-x-5 font-inter">
+                      <div className="bg-white text-black size-10 rounded-full flex justify-center items-center text-lg">
+                        <BiSolidMessageAltDetail size={24} />
+                      </div>
+                      <div className="text-base font-inter">
+                      <h1>Contact support</h1>
+                      <p>Contact support If you need help with your order</p>
+                      </div>
+                    </div>
+                  </div>
+
+                </>
               )}
             </div>
           </div>
