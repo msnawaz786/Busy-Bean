@@ -21,6 +21,8 @@ const navigate=useNavigate()
       );
       const result = await response.json();
       if (result.status === "success") {
+        localStorage.setItem("totalOrders",JSON.stringify(result?.data?.results))
+
         setOrderHistory(result?.data);
       }
     } catch (error) {}

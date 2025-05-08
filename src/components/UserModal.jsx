@@ -31,6 +31,7 @@ export default function UserModal({ isOpen, onClose }) {
   scrollBar();
   const dispatch = useDispatch();
   const userDetail = JSON.parse(localStorage.getItem("user"));
+  const totalOrders=JSON.parse(localStorage.getItem("totalOrders"))
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
@@ -82,7 +83,7 @@ export default function UserModal({ isOpen, onClose }) {
 
                 <div className="flex gap-x-4 text-lg font-medium">
                   <div className="">
-                    <span>5</span>
+                    <span>{userDetail?.status ? totalOrders : "0"}</span>
                     <p>Order</p>
                   </div>
                   <div className="">
