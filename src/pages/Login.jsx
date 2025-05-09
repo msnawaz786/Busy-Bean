@@ -13,6 +13,8 @@ export default function Login() {
   const [loginUser, setLoginUser] = useState({
     email: "",
     password: "",
+    registerBy:"google"
+
   });
   const [loading, setIsLoading] = useState(false);
   const accessToken = localStorage.getItem("token");
@@ -30,7 +32,7 @@ export default function Login() {
           name: user.displayName,
           email: user.email,
           photo: user.photoURL,
-          userId: user.uid,
+          googleUserId: user.uid,
           status: true,
         })
       );

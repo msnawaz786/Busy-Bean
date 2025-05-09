@@ -6,10 +6,14 @@ import { useNavigate } from "react-router-dom";
 export default function OrderHistory() {
   const userDetail = JSON.parse(localStorage.getItem("user"));
   const userId = userDetail?.id;
+  const googleUserId=userDetail?.googleUserId;
+  console.log(googleUserId,"jjjjjjjjjjjjjjj")
   const [orderHistory, setOrderHistory] = useState([]);
 const navigate=useNavigate()
   const fetchOrderHistory = async () => {
     try {
+      // const userIdentifier = userId || googleUserId;
+      // if (!userIdentifier) return;
       const response = await fetch(
         `${base_url}api/v1/users/orders?userId=${userId}`,
         {
@@ -37,7 +41,7 @@ const navigate=useNavigate()
         <Navbar />
         <div className="pt-48 pb-20">
           <div className="w-[90%] md:w-[77%] bg-[#3e342c] border border-[#86644c] mx-auto rounded-lg px-10 py-7 flex flex-col gap-y-7 ">
-            {userId ? (
+            {userId || googleUserId ? (
               <>
                 <div>
                   <h1 className="text-white font-bold font-inter text-xl sm:text-3xl">
@@ -52,13 +56,13 @@ const navigate=useNavigate()
                     {orderHistory?.data.map((orders) => (
                    
                         <div className="border-b border-[#86644c] py-7 cursor-pointer"   onClick={() => navigate("/timeline", { state: { orderId: orders.id } })}>
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-y-5 ">
+                          <div className="grid  lg:grid-cols-2 gap-y-5 ">
                             {orders?.items.map((items) => (
-                              <div className="flex gap-x-5 text-white">
-                                <div className="h-24 w-36 border">
+                              <div className="flex gap-x-4 text-white ">
+                                <div className="h-24 w-36 ">
                                   <img
                                     src="/images/pro3.jpg"
-                                    className="w-full h-full"
+                                    className="w-full h-full object-cover"
                                   />
                                 </div>
                                 <div className="font-normal font-inter">
@@ -74,9 +78,9 @@ const navigate=useNavigate()
                               </div>
                             ))}
                           </div>
-                          <div className="text-white flex justify-end text-lg font-bold font-inter">
-                            <span>Order Total: ${orders?.totalBill}</span>
-                          </div>
+                       
+                            <p className="text-base md:text-lg font-bold font-inter pt-5  text-white text-right">Order Total: ${orders?.totalBill}</p>
+                      
                         </div>
                     
                     ))}

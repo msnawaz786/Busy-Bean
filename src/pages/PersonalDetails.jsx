@@ -29,44 +29,20 @@ export default function PersonalDetails() {
   });
 
   const accessToken = localStorage.getItem("token");
+
   const handleProfileUpdate = async (type) => {
     let data = {};
 
     if (type === "name") {
-      data = {
-        userId: profile.userId,
-        userData: {
-          name: profile.name,
-        },
-      };
+      data = { userId: profile.userId, userData: { name: profile.name } };
     } else if (type === "companyName") {
-      data = {
-        userId: profile.userId,
-        userData: {
-          companyName: profile.companyName,
-        },
-      };
+      data = { userId: profile.userId, userData: { companyName: profile.companyName } };
     } else if (type === "emailToSendInvoices") {
-      data = {
-        userId: profile.userId,
-        userData: {
-          emailToSendInvoices: profile.emailToSendInvoices,
-        },
-      };
+      data = { userId: profile.userId, userData: { emailToSendInvoices: profile.emailToSendInvoices } };
     } else if (type === "phoneNumber") {
-      data = {
-        userId: profile.userId,
-        userData: {
-          phoneNumber: profile.phoneNumber,
-        },
-      };
+      data = { userId: profile.userId, userData: { phoneNumber: profile.phoneNumber } };
     } else if (type === "saleTaxNumber") {
-      data = {
-        userId: profile.userId,
-        userData: {
-          saleTaxNumber: profile.saleTaxNumber,
-        },
-      };
+      data = { userId: profile.userId, userData: { saleTaxNumber: profile.saleTaxNumber } };
     } else if (type === "address") {
       data = {
         addressId: profile.addressId,
@@ -82,8 +58,6 @@ export default function PersonalDetails() {
       };
     }
 
-  
-
     const res = await fetch(`${base_url}api/v1/users/drawer/update-profile`, {
       method: "PUT",
       headers: {
@@ -94,31 +68,28 @@ export default function PersonalDetails() {
     });
 
     const result = await res.json();
+
     if (result?.status === "success") {
       if (model.type === "name") {
         localStorage.setItem("userName", profile.name);
       } else if (model.type === "companyName") {
         localStorage.setItem("companyName", profile.companyName);
       } else if (model.type === "emailToSendInvoices") {
-        localStorage.setItem(
-          "emailToSendInvoices",
-          profile.emailToSendInvoices
-        );
+        localStorage.setItem("emailToSendInvoices", profile.emailToSendInvoices);
       } else if (model.type === "saleTaxNumber") {
         localStorage.setItem("saleTaxNumber", profile.saleTaxNumber);
       } else if (model.type === "phoneNumber") {
         localStorage.setItem("phoneNumber", profile.phoneNumber);
       } else if (model.type === "address") {
-        localStorage.setItem(
-          "address",
-          `${profile?.companyaddress},
-          ${profile?.addressLineOne},
-          ${profile?.addressLineTwo},
-          ${profile?.town},
-          ${profile?.zipCode},
-          ${profile?.country},
-          ${profile?.state}`
-        );
+        localStorage.setItem("address", JSON.stringify({
+          companyaddress: profile.companyaddress,
+          addressLineOne: profile.addressLineOne,
+          addressLineTwo: profile.addressLineTwo,
+          town: profile.town,
+          zipCode: profile.zipCode,
+          country: profile.country,
+          state: profile.state,
+        }));
       }
 
       setModel({ type: "", open: false });

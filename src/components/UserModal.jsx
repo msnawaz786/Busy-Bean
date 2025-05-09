@@ -14,11 +14,14 @@ import {
   IoIosNotifications,
 } from "react-icons/io";
 import { FaUserAlt } from "react-icons/fa";
-import { LuCircleUserRound, LuUsers } from "react-icons/lu";
+import { LuCircleUserRound, LuHistory, LuUsers } from "react-icons/lu";
+import { MdSupportAgent } from "react-icons/md";
+
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { clearCart } from "./store/cartSlice";
 import { toast } from "react-toastify";
+import { RiLogoutBoxRLine } from "react-icons/ri";
 export default function UserModal({ isOpen, onClose }) {
   const navigate = useNavigate();
   const scrollBar = () => {
@@ -81,7 +84,7 @@ export default function UserModal({ isOpen, onClose }) {
                 </p>
 
 
-                <div className="flex gap-x-4 text-lg font-medium">
+                {/* <div className="flex gap-x-4 text-lg font-medium">
                   <div className="">
                     <span>{userDetail?.status ? totalOrders : "0"}</span>
                     <p>Order</p>
@@ -90,35 +93,37 @@ export default function UserModal({ isOpen, onClose }) {
                     <span>5</span>
                     <p>Token</p>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
 
             <div className="text-white pt-10 ">
               <h1 className="font-semibold text-2xl font-roboto">Settings</h1>
-              <div className="main">
-                <div className="flex items-center justify-between border-b pb-4 pt-5 cursor-pointer">
+              <div className="main font-medium font-inter">
+                {/* <div className="flex items-center justify-between border-b pb-4 pt-5 cursor-pointer">
                   <div className="flex items-center gap-x-5">
                     <LuUsers />
                     <p>Invite Friends</p>
                   </div>
                   <IoIosArrowForward />
-                </div>
+                </div> */}
                 <div className="flex items-center justify-between border-b pb-4 pt-5 cursor-pointer">
                   <div className="flex items-center gap-x-5">
-                    <LuUsers />
+                  <MdSupportAgent size={24}/>
+
                     <p>Support</p>
                   </div>
                   <IoIosArrowForward />
                 </div>
                 <div className="flex items-center justify-between border-b pb-4 pt-5 cursor-pointer" onClick={()=>navigate("/order-history")}>
                   <div className="flex items-center gap-x-5">
-                    <LuUsers />
+                  <LuHistory size={24}/>
+
                     <p>Order History</p>
                   </div>
                   <IoIosArrowForward />
                 </div>
-                <div className="flex items-center justify-between border-b pb-4 pt-5 cursor-pointer">
+                {/* <div className="flex items-center justify-between border-b pb-4 pt-5 cursor-pointer">
                   <div className="flex items-center gap-x-5">
                     <LuUsers />
                     <p>Account</p>
@@ -138,37 +143,16 @@ export default function UserModal({ isOpen, onClose }) {
                     <p>My Addresses</p>
                   </div>
                   <IoIosArrowForward />
-                </div>
-                <div className="flex items-center justify-between border-b pb-4 pt-5 cursor-pointer">
-                  {userDetail?.status === true && (
-                    <div
-                      className="flex items-center gap-x-5"
-                      onClick={handleLogout}
-                    >
-                      <LuUsers />
-                      <p>Logout</p>
-                    </div>
-                  )}
-                  {userDetail?.status !== true && (
-                    <div
-                      className="flex items-center gap-x-5"
-                      onClick={() => navigate("/login")}
-                    >
-                      <LuUsers />
-                      <p>Login</p>
-                    </div>
-                  )}
+                </div> */}
+             
 
-                  <IoIosArrowForward />
-                </div>
-
-                <div className="flex items-center justify-between border-b pb-4 pt-5 cursor-pointer">
+                {/* <div className="flex items-center justify-between border-b pb-4 pt-5 cursor-pointer">
                   <div className="flex items-center gap-x-5">
                     <LuUsers />
                     <p>Secruity</p>
                   </div>
                   <IoIosArrowForward />
-                </div>
+                </div> */}
               </div>
             </div>
 
@@ -176,13 +160,13 @@ export default function UserModal({ isOpen, onClose }) {
               <h1 className="font-semibold text-2xl font-roboto">
                 Quick Linnks
               </h1>
-              <div className="main">
+              <div className="main font-medium font-inter">
                 <div
                   className="flex items-center justify-between border-b pb-4 pt-5 cursor-pointer"
                   onClick={() => navigate("/story")}
                 >
                   <div className="flex items-center gap-x-5">
-                    <LuUsers />
+                    <LuUsers size={24}/>
                     <p>Our Story</p>
                   </div>
                   <IoIosArrowForward />
@@ -192,7 +176,8 @@ export default function UserModal({ isOpen, onClose }) {
                   onClick={() => navigate("/financing")}
                 >
                   <div className="flex items-center gap-x-5">
-                    <LuUsers />
+                  <LuUsers size={24}/>
+      
                     <p>Financing</p>
                   </div>
                   <IoIosArrowForward />
@@ -202,7 +187,8 @@ export default function UserModal({ isOpen, onClose }) {
                   onClick={() => navigate("/resources")}
                 >
                   <div className="flex items-center gap-x-5">
-                    <LuUsers />
+                  <LuUsers size={24}/>
+
                     <p>Resources</p>
                   </div>
                   <IoIosArrowForward />
@@ -212,7 +198,8 @@ export default function UserModal({ isOpen, onClose }) {
                   onClick={() => navigate("/products")}
                 >
                   <div className="flex items-center gap-x-5">
-                    <LuUsers />
+                  <LuUsers size={24}/>
+
                     <p>Products</p>
                   </div>
                   <IoIosArrowForward />
@@ -222,7 +209,8 @@ export default function UserModal({ isOpen, onClose }) {
                   onClick={() => navigate("/payment-detail")}
                 >
                   <div className="flex items-center gap-x-5">
-                    <LuUsers />
+                  <LuUsers size={24}/>
+
                     <p>Payment details</p>
                   </div>
                   <IoIosArrowForward />
@@ -232,7 +220,8 @@ export default function UserModal({ isOpen, onClose }) {
                   onClick={() => navigate("/personal-detail")}
                 >
                   <div className="flex items-center gap-x-5">
-                    <LuUsers />
+                  <LuUsers size={24}/>
+
                     <p>Personal Details</p>
                   </div>
                   <IoIosArrowForward />
@@ -242,7 +231,8 @@ export default function UserModal({ isOpen, onClose }) {
                   onClick={() => navigate("/preference")}
                 >
                   <div className="flex items-center gap-x-5">
-                    <LuUsers />
+                  <LuUsers size={24}/>
+
                     <p>Preferences</p>
                   </div>
                   <IoIosArrowForward />
@@ -252,9 +242,34 @@ export default function UserModal({ isOpen, onClose }) {
                   onClick={() => navigate("/security")}
                 >
                   <div className="flex items-center gap-x-5">
-                    <LuUsers />
+                  <LuUsers size={24}/>
+
                     <p>Secruity</p>
                   </div>
+                  <IoIosArrowForward />
+                </div>
+                <div className="flex items-center justify-between border-b pb-4 pt-5 cursor-pointer">
+                  {userDetail?.status === true && (
+                    <div
+                      className="flex items-center gap-x-5"
+                      onClick={handleLogout}
+                    >
+                    <RiLogoutBoxRLine size={24} />
+
+                      <p>Logout</p>
+                    </div>
+                  )}
+                  {userDetail?.status !== true && (
+                    <div
+                      className="flex items-center gap-x-5"
+                      onClick={() => navigate("/login")}
+                    >
+                     <RiLogoutBoxRLine />
+
+                      <p>Login</p>
+                    </div>
+                  )}
+
                   <IoIosArrowForward />
                 </div>
               </div>
