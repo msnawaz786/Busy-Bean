@@ -13,7 +13,7 @@ export default function Login() {
   const [loginUser, setLoginUser] = useState({
     email: "",
     password: "",
-    // registerBy:"google"
+    registerBy:"google"
 
   });
   const [loading, setIsLoading] = useState(false);
@@ -21,29 +21,95 @@ export default function Login() {
 
   const [errors, setErrors] = useState({});
 
-  const handleGoogleLogin = async () => {
-    try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
+const requiredFields = {
+  address: {
+    addressLineOne: "",
+    addressLineTwo: "",
+    companyaddress: "",
+    country: "",
+    state: "",
+    status: true,
+    town: "",
+    zipCode: "",
+  },
+  info: {
+    companyInfo: "",
+    companyName: "",
+    email: "",
+    emailToSendInvoices: "",
+    name: "",
+    password: "",
+    confirmPassword: "",
+    phoneNumber: "",
+    saleTaxNumber: "",
+    status: true,
+    registerBy: "google",
+  },
+};
 
-      localStorage.setItem(
-        "user",
-        JSON.stringify({
-          name: user.displayName,
-          email: user.email,
-          photo: user.photoURL,
-          googleUserId: user.uid,
-          status: true,
-        })
-      );
+const hasMissingFields = (fields) => {
+  for (let section in fields) {
+    for (let key in fields[section]) {
+      if (
+        fields[section][key] === "" ||
+        fields[section][key] === null ||
+        fields[section][key] === undefined
+      ) {
+        return true;
+      }
+    }
+  }
+  return false;
+};
 
+const handleGoogleLogin = async () => {
+  try {
+    const result = await signInWithPopup(auth, provider);
+    const user = result.user;
+
+    const filledFields = {
+      ...requiredFields,
+      info: {
+        ...requiredFields.info,
+        name: user.displayName || "",
+        email: user.email || "",
+        phoneNumber: user.phoneNumber || "",
+        registerBy: "google",
+      },
+    };
+
+    if (hasMissingFields(filledFields)) {
+      localStorage.setItem("googleUserDraft", JSON.stringify(filledFields));
+      toast.info("Please complete the signup form");
+      navigate("/signup");
+      return;
+    }
+
+
+    const response = await fetch(`${base_url}api/v1/users/signup`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(filledFields),
+    });
+
+    const data = await response.json();
+
+    if (data.status === "success") {
+      localStorage.setItem("token", data?.data?.token);
+      localStorage.setItem("user", JSON.stringify(data?.data?.user));
       toast.success("Google login successful");
       navigate("/");
-    } catch (error) {
-      console.error("Google login error", error);
-      toast.error("Google login failed");
+    } else {
+      toast.error("Signup failed");
     }
-  };
+  } catch (error) {
+    console.error("Google login error", error);
+    toast.error("Google login failed");
+  }
+};
+
   const handleFacebookLogin = async () => {
     try {
       const result = await signInWithPopup(auth, facebookProvider);

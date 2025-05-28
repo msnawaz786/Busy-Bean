@@ -30,7 +30,7 @@ export default function Signup() {
       emailToSendInvoices: "",
       name: "",
       password: "",
-      confirmPassword:"",
+      confirmPassword: "",
       phoneNumber: "",
       saleTaxNumber: "",
       status: true,
@@ -117,7 +117,7 @@ export default function Signup() {
       toast.error("Password must be at least 8 characters long");
       return;
     }
-  
+
     if (addUser.info.password !== addUser.info.confirmPassword) {
       toast.error("Passwords do not match");
       return;
@@ -159,7 +159,7 @@ export default function Signup() {
             emailToSendInvoices: "",
             name: "",
             password: "",
-      confirmPassword:"",
+            confirmPassword: "",
 
             phoneNumber: "",
             saleTaxNumber: "",
@@ -179,20 +179,21 @@ export default function Signup() {
     <div className="bg-[#3e342c]">
       <div className="h-screen flex items-center">
         <div className="w-11/12 sm:w-4/6 md:w-[70%] lg:w-3/5 xl:w-2/4 mx-auto border border-[#86644C] bg-[#322a23] px-5">
-
-        {currentStep > 1 && (
-  <div className="text-white cursor-pointer text-2xl relative top-16 left-10" onClick={() => setCurrentStep(currentStep - 1)}>
-    <FaLongArrowAltLeft />
-  </div>
-)}
-        <div className="flex justify-center">
-
-          <div className="w-60 md:w-72 lg:w-80 ">
-            <img
-              src="/images/logocoffeelogin.png"
-              className="h-full w-full object-contain"
-            />
-          </div>
+          {currentStep > 1 && (
+            <div
+              className="text-white cursor-pointer text-2xl relative top-16 left-10"
+              onClick={() => setCurrentStep(currentStep - 1)}
+            >
+              <FaLongArrowAltLeft />
+            </div>
+          )}
+          <div className="flex justify-center">
+            <div className="w-60 md:w-72 lg:w-80 ">
+              <img
+                src="/images/logocoffeelogin.png"
+                className="h-full w-full object-contain"
+              />
+            </div>
           </div>
 
           {!showPinModal && (
@@ -302,7 +303,7 @@ export default function Signup() {
                             e.preventDefault();
                             if (validateStepOne()) {
                               setCurrentStep(2);
-                              toast.success("First Step complete")
+                              toast.success("First Step complete");
                             }
                           }}
                         >
@@ -383,9 +384,7 @@ export default function Signup() {
                             e.preventDefault();
                             if (validateStepTwo()) {
                               setCurrentStep(3);
-                              toast.success("Second Step complete")
-
-                           
+                              toast.success("Second Step complete");
                             }
                           }}
                         >
@@ -438,16 +437,16 @@ export default function Signup() {
                         />
                       </div>
                       <div className="flex flex-col gap-y-3">
-                    <label>Confirm Password</label>
-                    <input
-                      type="password"
-                      name="confirmPassword"
-                      value={addUser.info.confirmPassword}
-                      onChange={handleInfoChange}
-                      className="bg-black rounded-lg py-2 outline-none px-5"
-                      placeholder="Confirm password"
-                    />
-                  </div>
+                        <label>Confirm Password</label>
+                        <input
+                          type="password"
+                          name="confirmPassword"
+                          value={addUser.info.confirmPassword}
+                          onChange={handleInfoChange}
+                          className="bg-black rounded-lg py-2 outline-none px-5"
+                          placeholder="Confirm password"
+                        />
+                      </div>
 
                       <div className="flex justify-center items-center bg-[#86644c] py-2 rounded-lg cursor-pointer">
                         <button type="submit">Submitt</button>
@@ -471,7 +470,11 @@ export default function Signup() {
           )}
 
           {showPinModal && (
-            <PinVerification type="signup" userId={userId} userEmail={userEmail} />
+            <PinVerification
+              type="signup"
+              userId={userId}
+              userEmail={userEmail}
+            />
           )}
         </div>
       </div>

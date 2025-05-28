@@ -65,7 +65,6 @@ export default function Checkout() {
         orderFrequency,
         totalBill: subtotal,
         subTotal: subtotal,
-        // vat: vat,
         discountPrice: 0,
         discountPercentage: 0,
         itemsPrice: subtotal,

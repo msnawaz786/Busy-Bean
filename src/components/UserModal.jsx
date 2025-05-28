@@ -34,7 +34,7 @@ export default function UserModal({ isOpen, onClose }) {
   scrollBar();
   const dispatch = useDispatch();
   const userDetail = JSON.parse(localStorage.getItem("user"));
-  const totalOrders=JSON.parse(localStorage.getItem("totalOrders"))
+  // const totalOrders = JSON.parse(localStorage.getItem("totalOrders"));
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
@@ -65,15 +65,17 @@ export default function UserModal({ isOpen, onClose }) {
 
           <DrawerBody>
             <h1 className="text-white font-bold text-3xl font-roboto py-5 ">
-              HowdyUser
+              Howdy {userDetail?.status ? userDetail?.name:"User"}
             </h1>
             <div className="flex items-center gap-x-10">
-              <div className="text-white text-5xl border-2 border-[#3d332b] rounded-full size-28 flex justify-center items-center">
+              <div className="text-white text-5xl border-2  rounded-full size-28 flex justify-center items-center">
                 <FaUserAlt />
               </div>
               <div className="text-white flex flex-col gap-y-2">
-                <h1 className="text-2xl font-semibold">Hi,
-                  {userDetail?.status ?  userDetail?.name : " user"}
+                <h1 className="text-2xl font-semibold">
+                  Hi,
+                  {userDetail?.status ? userDetail?.name?.split(" ")[0] : "user"}
+
                 </h1>
 
                 <p className="text-lg font-medium">
@@ -82,7 +84,6 @@ export default function UserModal({ isOpen, onClose }) {
                 <p className="text-lg font-medium">
                   {userDetail?.status ? userDetail?.phoneNumber : ""}
                 </p>
-
 
                 {/* <div className="flex gap-x-4 text-lg font-medium">
                   <div className="">
@@ -109,15 +110,18 @@ export default function UserModal({ isOpen, onClose }) {
                 </div> */}
                 <div className="flex items-center justify-between border-b pb-4 pt-5 cursor-pointer">
                   <div className="flex items-center gap-x-5">
-                  <MdSupportAgent size={24}/>
+                    <MdSupportAgent size={24} />
 
                     <p>Support</p>
                   </div>
                   <IoIosArrowForward />
                 </div>
-                <div className="flex items-center justify-between border-b pb-4 pt-5 cursor-pointer" onClick={()=>navigate("/order-history")}>
+                <div
+                  className="flex items-center justify-between border-b pb-4 pt-5 cursor-pointer"
+                  onClick={() => navigate("/order-history")}
+                >
                   <div className="flex items-center gap-x-5">
-                  <LuHistory size={24}/>
+                    <LuHistory size={24} />
 
                     <p>Order History</p>
                   </div>
@@ -144,7 +148,6 @@ export default function UserModal({ isOpen, onClose }) {
                   </div>
                   <IoIosArrowForward />
                 </div> */}
-             
 
                 {/* <div className="flex items-center justify-between border-b pb-4 pt-5 cursor-pointer">
                   <div className="flex items-center gap-x-5">
@@ -166,7 +169,7 @@ export default function UserModal({ isOpen, onClose }) {
                   onClick={() => navigate("/story")}
                 >
                   <div className="flex items-center gap-x-5">
-                    <LuUsers size={24}/>
+                    <LuUsers size={24} />
                     <p>Our Story</p>
                   </div>
                   <IoIosArrowForward />
@@ -176,8 +179,8 @@ export default function UserModal({ isOpen, onClose }) {
                   onClick={() => navigate("/financing")}
                 >
                   <div className="flex items-center gap-x-5">
-                  <LuUsers size={24}/>
-      
+                    <LuUsers size={24} />
+
                     <p>Financing</p>
                   </div>
                   <IoIosArrowForward />
@@ -187,7 +190,7 @@ export default function UserModal({ isOpen, onClose }) {
                   onClick={() => navigate("/resources")}
                 >
                   <div className="flex items-center gap-x-5">
-                  <LuUsers size={24}/>
+                    <LuUsers size={24} />
 
                     <p>Resources</p>
                   </div>
@@ -198,7 +201,7 @@ export default function UserModal({ isOpen, onClose }) {
                   onClick={() => navigate("/products")}
                 >
                   <div className="flex items-center gap-x-5">
-                  <LuUsers size={24}/>
+                    <LuUsers size={24} />
 
                     <p>Products</p>
                   </div>
@@ -209,7 +212,7 @@ export default function UserModal({ isOpen, onClose }) {
                   onClick={() => navigate("/payment-detail")}
                 >
                   <div className="flex items-center gap-x-5">
-                  <LuUsers size={24}/>
+                    <LuUsers size={24} />
 
                     <p>Payment details</p>
                   </div>
@@ -220,7 +223,7 @@ export default function UserModal({ isOpen, onClose }) {
                   onClick={() => navigate("/personal-detail")}
                 >
                   <div className="flex items-center gap-x-5">
-                  <LuUsers size={24}/>
+                    <LuUsers size={24} />
 
                     <p>Personal Details</p>
                   </div>
@@ -231,7 +234,7 @@ export default function UserModal({ isOpen, onClose }) {
                   onClick={() => navigate("/preference")}
                 >
                   <div className="flex items-center gap-x-5">
-                  <LuUsers size={24}/>
+                    <LuUsers size={24} />
 
                     <p>Preferences</p>
                   </div>
@@ -242,7 +245,7 @@ export default function UserModal({ isOpen, onClose }) {
                   onClick={() => navigate("/security")}
                 >
                   <div className="flex items-center gap-x-5">
-                  <LuUsers size={24}/>
+                    <LuUsers size={24} />
 
                     <p>Secruity</p>
                   </div>
@@ -254,7 +257,7 @@ export default function UserModal({ isOpen, onClose }) {
                       className="flex items-center gap-x-5"
                       onClick={handleLogout}
                     >
-                    <RiLogoutBoxRLine size={24} />
+                      <RiLogoutBoxRLine size={24} />
 
                       <p>Logout</p>
                     </div>
@@ -264,7 +267,7 @@ export default function UserModal({ isOpen, onClose }) {
                       className="flex items-center gap-x-5"
                       onClick={() => navigate("/login")}
                     >
-                     <RiLogoutBoxRLine />
+                      <RiLogoutBoxRLine />
 
                       <p>Login</p>
                     </div>
