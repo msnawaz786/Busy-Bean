@@ -12,12 +12,24 @@ import PaymentMethodModal from "../components/PaymentMethodModal";
 import { base_url } from "../utilities/URL";
 import { clearCart, selectTotalPrice } from "../components/store/cartSlice";
 import { toast } from "react-toastify";
+import AddressModal from "../components/AddressModal";
 
 export default function Checkout() {
   const selectedProducts = useSelector((state) => state.cart);
   const subtotal = useSelector(selectTotalPrice);
   const navigate = useNavigate();
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  // const { isOpen, onOpen, onClose } = useDisclosure();
+   const {
+  isOpen: isPaymentOpen,
+  onOpen: onPaymentOpen,
+  onClose: onPaymentClose,
+} = useDisclosure();
+
+const {
+  isOpen: isAddressOpen,
+  onOpen: onAddressOpen,
+  onClose: onAddressClose,
+} = useDisclosure();
  const dispatch=useDispatch();
 
   const [note, setNote] = useState("");
@@ -107,7 +119,7 @@ toast.success("Order create successfully")
   return (
     <div className="bg-[#86644c] relative">
       <Navbar />
-      <div className="relative">
+      <div className="relative h-96">
         <CheckoutMap />
         <div className="absolute bottom-28 left-[30%]">
           <h2 className="text-5xl font-bold font-roboto">Checkout</h2>
@@ -118,22 +130,27 @@ toast.success("Order create successfully")
       <div className="grid grid-cols-1 md:grid-cols-2 px-5 md:px-0 max-w-[1200px] mx-auto gap-x-20 pb-20 md:pb-10">
         <div>
           <section className="py-10">
-            <h1 className="text-3xl text-white font-semibold font-roboto">
+            <h1 className="text-3xl text-white font-semibold font-roboto pb-5">
               Delivery Details
             </h1>
-            <div className="bg-[#3e342c] border-2 rounded-lg py-5 text-white flex items-center gap-x-3 pl-5 text-lg font-semibold mt-4">
+            <div className="bg-[#3e342c] border-2 rounded-lg h-20 text-white flex justify-between items-center px-5">
+            <div className=" flex items-center gap-x-3  text-lg font-semibold">
               <FaLocationCrosshairs />
               <div className=" font-normal text-base">
-                <p className="">Delivery Address</p>
+                <p className="text-orange-200">Delivery Address</p>
                 <p>
                   {userDetail?.address?.addressLineOne}{" "}
                   {userDetail?.address?.addressLineTwo}
                 </p>
               </div>
             </div>
-            <div className="relative w-full mt-4">
+            <div>
+            <button className="bg-[#3e4033] text-green-600 px-4 py-2 font-inter font-semibold" onClick={()=>onAddressOpen()}>Change</button>
+            </div>
+            </div>
+            <div className="relative w-full">
               <MdOutlineMessage className="absolute left-4 top-1/2 -translate-y-1/2 text-white z-10" />
-              <div className="bg-[#3e342c] border-2 rounded-lg py-5 pl-12 pr-4 text-white text-lg font-semibold relative">
+              <div className="bg-[#3e342c] border-2 rounded-lg h-20 pl-12 pr-4 text-white text-lg font-semibold relative">
                 <input
                   type="text"
                   id="note"
@@ -190,7 +207,7 @@ toast.success("Order create successfully")
             </h1>
             <div
               className="bg-[#3e342c] rounded-lg py-5 text-white px-5 text-lg font-semibold flex items-center justify-between cursor-pointer"
-              onClick={onOpen}
+              onClick={onPaymentOpen}
             >
               {selectedPaymentMethod ? (
                 <div className="flex items-center gap-x-3">
@@ -307,10 +324,12 @@ toast.success("Order create successfully")
 
       <Footer />
       <PaymentMethodModal
-        isOpen={isOpen}
-        onClose={onClose}
+        isOpen={isPaymentOpen}
+        onClose={onPaymentClose}
         selectPaymentMethod={setSelectedPaymentMethod}
       />
+      <AddressModal    isOpen={isAddressOpen}
+        onClose={onAddressClose}/>
     </div>
   );
 }

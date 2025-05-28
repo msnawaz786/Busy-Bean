@@ -6,7 +6,7 @@ export default function CheckoutMap() {
   const containerStyle = {
     // marginTop:"64px",
     width: "100%",
-    height: "420px",
+  height: "100%",
     borderRadius: "0px",
   };
 

@@ -6,8 +6,8 @@ import { useNavigate } from "react-router-dom";
 export default function OrderHistory() {
   const userDetail = JSON.parse(localStorage.getItem("user"));
   const userId = userDetail?.id;
-  const googleUserId=userDetail?.googleUserId;
-  console.log(googleUserId,"jjjjjjjjjjjjjjj")
+  // const googleUserId=userDetail?.googleUserId;
+
   const [orderHistory, setOrderHistory] = useState([]);
 const navigate=useNavigate()
   const fetchOrderHistory = async () => {
@@ -24,10 +24,11 @@ const navigate=useNavigate()
         }
       );
       const result = await response.json();
+  
       if (result.status === "success") {
         localStorage.setItem("totalOrders",JSON.stringify(result?.data?.results))
 
-        setOrderHistory(result?.data);
+        setOrderHistory(result?.data?.data || [] );
       }
     } catch (error) {}
   };
@@ -41,7 +42,7 @@ const navigate=useNavigate()
         <Navbar />
         <div className="pt-48 pb-20">
           <div className="w-[90%] md:w-[77%] bg-[#3e342c] border border-[#86644c] mx-auto rounded-lg px-10 py-7 flex flex-col gap-y-7 ">
-            {userId || googleUserId ? (
+            {userId  ? (
               <>
                 <div>
                   <h1 className="text-white font-bold font-inter text-xl sm:text-3xl">
@@ -51,9 +52,9 @@ const navigate=useNavigate()
                     Active Order
                   </h1>
                 </div>
-                {orderHistory.results > 0 ? (
+                {orderHistory.length > 0 ? (
                   <div>
-                    {orderHistory?.data.map((orders) => (
+                    {orderHistory.map((orders) => (
                    
                         <div className="border-b border-[#86644c] py-7 cursor-pointer"   onClick={() => navigate("/timeline", { state: { orderId: orders.id } })}>
                           <div className="grid  lg:grid-cols-2 gap-y-5 ">

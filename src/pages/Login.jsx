@@ -94,10 +94,10 @@ export default function Login() {
     }
 
     if (!loginUser.password) {
-      newErrors.password = "Please enter your password.";
-    } else if (loginUser.password.length < 8) {
-      newErrors.password = "Password must be at least 8 characters.";
-    }
+      newErrors.password = "Please enter your password.";}
+    // } else if (loginUser.password.length < 8) {
+    //   newErrors.password = "Password must be at least 8 characters.";
+    // }
 
     setErrors(newErrors);
     if (Object.keys(newErrors).length > 0) {
@@ -119,16 +119,22 @@ export default function Login() {
       if (result.status === "success") {
         localStorage.setItem("token", result?.data?.token);
         localStorage.setItem("user", JSON.stringify(result?.data?.user));
+        localStorage.setItem("userId", JSON.stringify(result?.data?.user?.id));
+
         toast.success("Login successfull");
 
         navigate("/");
       } else {
-        toast.error("invalide credential");
-        setLoginUser({
-          email: "",
-          password: "",
-        });
-      }
+  if (result.message === "User not found") {
+    toast.error("User not found");
+  } else if (result.message === "Incorrect email or password") {
+    toast.error("Email or password is incorrect");
+  } else {
+    toast.error(result.message || "Login failed");
+  }
+
+  setLoginUser({ email: "", password: "" });
+}
     } catch (error) {
       toast.error("Network Error");
       setLoginUser({
