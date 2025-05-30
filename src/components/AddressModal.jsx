@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Modal, ModalOverlay, ModalContent, ModalBody } from "@chakra-ui/react";
 import { ImCross } from "react-icons/im";
 import { FaLocationDot } from "react-icons/fa6";
@@ -6,9 +6,13 @@ import { FaArrowLeft, FaPlus } from "react-icons/fa";
 import Select from "react-select";
 import CheckoutMap from "./CheckoutMap";
 import { Country, City } from "country-state-city";
+import { Autocomplete } from "@react-google-maps/api";
+import axios from "axios";
+import { base_url } from "../utilities/URL";
 
 export default function AddressModal({ isOpen, onClose }) {
   const [step, setStep] = useState(1);
+  const [address, setAddress] = useState([]);
   const countryOptions = Country.getAllCountries().map((country) => ({
     value: country.isoCode,
     label: country.name,
@@ -20,6 +24,53 @@ export default function AddressModal({ isOpen, onClose }) {
   };
   const userId = JSON.parse(localStorage.getItem("userId"));
 
+  const handleAddress = async () => {
+    try {
+      const response = await axios.get(
+        `${base_url}api/v1/users/address/view-all?userId=${userId}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      const result = response.data;
+
+      if (result?.status === "success") {
+        setAddress(result?.data?.data);
+      } else {
+        console.error("Failed to fetch user addresses:", result?.message);
+      }
+    } catch (error) {
+      console.error(
+        "Something went wrong:",
+        error?.response?.data?.message || error.message
+      );
+    }
+  };
+  const [selectedCountry, setSelectedCountry] = useState(null);
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    handleAddress();
+    if (!selectedCountry || !inputRef.current || !window.google) return;
+
+    const autocomplete = new window.google.maps.places.Autocomplete(
+      inputRef.current,
+      {
+        types: ["(cities)"],
+        componentRestrictions: {
+          country: selectedCountry?.value?.toLowerCase(),
+        },
+      }
+    );
+
+    autocomplete.addListener("place_changed", () => {
+      const place = autocomplete.getPlace();
+      console.log("Selected city:", place?.formatted_address);
+    });
+  }, [selectedCountry]);
   return (
     <Modal isOpen={isOpen} onClose={handleClose} size="2xl" isCentered>
       <ModalOverlay />
@@ -53,7 +104,14 @@ export default function AddressModal({ isOpen, onClose }) {
               <div className="pt-5 flex flex-col gap-y-5">
                 <div className="text-white flex items-center gap-x-5 pb-5 border-b">
                   <FaLocationDot size={30} />
-                  <p>Lahore, Lahore 54000</p>
+                  <div>
+                    {address.map((adr) => (
+                      <p>
+                        {adr?.addressLineOne},{adr?.addressLineTwo},{adr?.town},
+                        {adr?.zipCode},{adr?.country}
+                      </p>
+                    ))}
+                  </div>
                 </div>
                 <div className="text-white flex items-center gap-x-5 pb-5 border-b">
                   <FaPlus size={30} />
@@ -73,6 +131,8 @@ export default function AddressModal({ isOpen, onClose }) {
                   <Select
                     options={countryOptions}
                     placeholder="Select Countries"
+                    onChange={(option) => setSelectedCountry(option)}
+                    value={selectedCountry}
                     className="text-black"
                     styles={{
                       control: (provided) => ({
@@ -92,11 +152,15 @@ export default function AddressModal({ isOpen, onClose }) {
                   />
                 </div>
                 <div>
+                  {/* <Autocomplete> */}
                   <input
+                    ref={inputRef}
                     type="text"
                     placeholder="Chose a delivery address"
                     className="h-12 px-2 rounded-md bg-white text-black w-full "
                   />
+
+                  {/* </Autocomplete> */}
                 </div>
 
                 <div className="flex gap-x-3">
@@ -105,6 +169,7 @@ export default function AddressModal({ isOpen, onClose }) {
                       Country
                     </label>
                     <input
+                      value={selectedCountry?.label || ""}
                       type="text"
                       placeholder="Enter country"
                       className="h-12 px-2 rounded-md bg-white text-black w-full "
